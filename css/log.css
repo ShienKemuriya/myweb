@@ -1,0 +1,73 @@
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    text-align: center;
+    background-color: white;
+}
+
+h2{
+    font-size: 30px;
+}
+
+.header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+}
+
+.nagareru {
+    background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 300%;
+    font-weight: bold;
+    display: inline-block;
+    will-change: transform;
+}
+
+.welcome{
+    width: 400px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: auto;
+    background-image: url("../img/test.gif");
+}
+
+/* スライドショー */
+.diary-entry {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5em;
+}
+
+.slideshow {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.slideshow img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: none;
+}
+
+.slideshow-controls {
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.slideshow-controls button {
+    font-size: 1.2em;
+    margin: 0 10px;
+}
+
+.himitu{
+    color: white;
+}

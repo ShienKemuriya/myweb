@@ -1,0 +1,86 @@
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    text-align: center;
+}
+
+h2{
+    font-size: 30px;
+}
+
+.header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+}
+
+/* .nagareru{
+    background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 300%;
+    font-weight: bold;
+    display: inline-block;
+} */
+
+/* Chromeの表示がおかしくなるので下記に修正 */
+.nagareru {
+    background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 300%;
+    font-weight: bold;
+    display: inline-block;
+    will-change: transform;
+}
+
+
+.marquee-wrapper {
+    width: 500px;         /* 流す範囲の幅（好きな幅に変更OK） */
+    margin: 0 auto;       /* 中央寄せ */
+    overflow: hidden;     /* はみ出した部分を隠す */
+    border: 2px solid #fff; /* 枠をつけたい場合 */
+}
+
+.marquee-span {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(-100%);
+  }
+}
+
+.welcome{
+    width: 400px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: auto;
+    background-image: url("../img/test.gif");
+    color: #fff;
+}
+
+table{
+    margin: auto;
+}
+
+.profile_icon{
+    margin: auto;
+    width: 280px;
+}
+
+.profile:after{
+    clear: both;
+}

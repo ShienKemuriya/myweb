@@ -1,0 +1,148 @@
+<!-- 
+    まぁた、来たよ。
+    大したもんは無いから、
+    勝手にみて勝手に帰ってどうぞ☆
+-->
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>煙屋紫煙の活動記録</title>
+        <link rel="stylesheet" href="css/log.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+    </head>
+    <body>
+        
+        <div class="header">
+            <h1 id="top">煙屋さんの活動記録</h1>
+            ｜<a href="index.html#top">トップ</a>｜
+            <a href="index.html#profile">プロフィール</a>｜
+            <a href="log.html">活動記録</a>｜
+        </div>
+
+        <div class="marquee-wrapper">
+            <div class="marquee-span">
+                <h2 class="nagareru">
+                    <strong>☆煙屋紫煙の活動日記だよ☆</strong>
+                </h2>
+            </div>
+        </div>
+
+        <p class="welcome">
+            <strong>らっしゃいましぃ＼(＾o＾)／らっしゃいましぃ</strong>
+        </p>
+
+        <br>
+        <br>
+
+        <p>
+            煙屋紫煙のREALITYでの思い出とかを適当にまとめています。<br>
+        
+        </p>
+
+        <br>
+        <br>
+
+        <div class="kouji_now">
+            <p>
+                随時更新していきます。
+            </p>
+            <img src="img/kouji.gif">
+            <img src="img/kouji.gif">
+            <img src="img/kouji.gif">
+        </div> 
+
+        <div class="diary-entry">
+            <h2>2025年 7月 12日：アバター選手権</h2>
+            <p>
+                「みんなが思う煙屋紫煙アバター選手権」を開催しました。<br>
+                たくさんの方のご参加ありがとうございました。<br>
+                とても楽しかったです。<br>
+                入賞者の皆様おめでとうございます。<br>
+            </p>
+
+            <!-- 個々の画像が下にはみ出る。 -->
+            <div class="slideshow" data-index="0">
+                <img src="img/男性アバター.jpg" class="slide" style="display:block;">
+                <img src="img/女性アバター.jpg" class="slide" style="display:none;">
+                <img src="img/キワモノ1.jpg" class="slide" style="display:none;">
+                <img src="img/キワモノ2.jpg" class="slide" style="display:none;">
+                <div class="slideshow-controls">
+                <button class="prev">←</button>
+                <button class="next">→</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="diary-entry">
+            <h2>2025年 5月 17日：ワンデイ</h2>
+            <p>
+                人生初のREALITYイベント「ワンデイ」に参加しました。<br>
+                結果はグループ3位！<br>
+                初めてのイベント、初めてのギフト、初めての企画枠<br>
+                いろんな初めてを経験しました。<br>
+                応援ありがとうございます。<br>
+            </p>
+            <!-- こっちは問題なく、CSSで指定したサイズで表示される。 -->
+            <div class="slideshow" data-index="0">
+                <img src="img/デビュグラ1.jpg" class="slide" style="display:block;">
+                <img src="img/デビュグラ2.jpg" class="slide" style="display:none;">
+                <img src="img/デビュグラ3.jpg" class="slide" style="display:none;">
+                <div class="slideshow-controls">
+                <button class="prev">←</button>
+                <button class="next">→</button>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <br>
+
+
+        <div>
+            <h2>2025年 4月 30日：初配信</h2>
+            <p>
+                ド深夜の0時に枠を立てて静かなタバコ屋さんとしての活動を始めました。<br>
+            </p>
+        </div>
+
+        <br>
+        <p class="welcome">
+            <strong class="debu">4月30日 初配信！</strong>
+        </p>
+
+        <br>
+
+        <a href="css/omake.html" class="himitu">秘密のリンク</a>
+        </div>
+    </body>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const slideshows = document.querySelectorAll(".slideshow");
+
+    slideshows.forEach(slideshow => {
+        let slides = slideshow.querySelectorAll(".slide");
+        let currentIndex = 0;
+
+        // 最初の画像だけ表示
+        slides[currentIndex].style.display = "block";
+
+        const showSlide = (index) => {
+        slides.forEach(slide => slide.style.display = "none");
+        slides[index].style.display = "block";
+        };
+
+        slideshow.querySelector(".prev").addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+        });
+
+        slideshow.querySelector(".next").addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+        });
+    });
+    });
+    </script>
+</html>
