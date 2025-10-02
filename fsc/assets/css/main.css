@@ -33,6 +33,146 @@ body {
 	line-height: 1;
 }
 
+/* パーソナルカラー背景 */
+/* 煙屋紫煙 */
+.wrapper.spotlight.style_shien{
+	background-color: #9186A8;	
+}
+	.wrapper.spotlight.style_shien:before, .wrapper.spotlight.style_shien:after {
+		/* 下の行のfillの値を変える */
+		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
+	}
+	.wrapper.spotlight.style_shien:before {
+		box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+	}
+
+	.wrapper.spotlight.style_shien:after {
+		box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+	}
+
+	/* 北条寛也 */
+	.wrapper.spotlight.style_shien{
+	background-color: #9186A8;	
+	}
+		.wrapper.spotlight.style_shien:before, .wrapper.spotlight.style_shien:after {
+			/* 下の行のfillの値を変える */
+			/* fillの値は16進数カラーコードの#をURLエンコードしたものを使用する（#を%23に置き換えるだけ） */
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
+		}
+		.wrapper.spotlight.style_shien:before {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+		.wrapper.spotlight.style_shien:after {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+	/* 北条寛也 */
+	.wrapper.spotlight.style_hiro{
+		background-color: #9186A8;	
+	}
+		.wrapper.spotlight.style_hiro:before, .wrapper.spotlight.style_shien:after {
+			/* 下の行のfillの値を変える */
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
+		}
+		.wrapper.spotlight.style_hiro:before {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+		.wrapper.spotlight.style_hiro:after {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+	/* 天華 */
+	.wrapper.spotlight.style_tenka{
+		background-color: #9186A8;	
+	}
+		.wrapper.spotlight.style_tenka:before, .wrapper.spotlight.style_shien:after {
+			/* 下の行のfillの値を変える */
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
+		}
+		.wrapper.spotlight.style_tenka:before {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+		.wrapper.spotlight.style_tenka:after {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+	/* 毒島くらげ */
+	.wrapper.spotlight.style_kurage{
+		background-color: #9186A8;	
+	}
+		.wrapper.spotlight.style_kurage:before, .wrapper.spotlight.style_shien:after {
+			/* 下の行のfillの値を変える */
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
+		}
+		.wrapper.spotlight.style_kurage:before {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+		.wrapper.spotlight.style_kurage:after {
+			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+		}
+
+/* プロフィール画面用 */
+
+/* REALITYアイコン */
+.reality {
+	width: 70px;
+}
+
+.reality_text{
+	display: inline-flex;     /* 横並び */
+    align-items: center;      /* 縦位置を中央に揃える */
+    gap: 0.5rem;              /* アイコンと文字の余白 */
+    text-decoration: none;
+    font-size: 3rem;        /* 文字サイズを統一（調整可） */
+    font-weight: 600;         /* 太さ調整（Twitterに近づける） */
+}
+/* デフォルト：縦並び（スマホ・タブレット用） */
+.profile_banner .inner {
+    display: block;
+    text-align: center;
+}
+
+.profile img {
+    border-radius: 100%;
+    width: 50%;
+    /* height: 200px; */
+    object-fit: cover;
+    margin: 0 auto 1rem auto; /* 中央寄せ */
+}
+
+.profile_banner .text {
+    display: block;
+}
+
+/* 画面幅 981px以上：横並び（PC用） */
+@media screen and (min-width: 981px) {
+    .profile_banner .inner {
+        display: flex;         /* 横並び */
+        align-items: center;   /* 縦方向中央揃え */
+        gap: 2rem;             /* 画像とテキストの間の余白 */
+        text-align: left;      /* PCでは左寄せ */
+    }
+	.profile_banner .profile{
+		flex: 0 0 25%;
+	}
+    .profile_banner .profile img {
+		width: 100%;
+        margin: 0;             /* 左寄せに戻す */
+		flex: 0 0 75%;
+    }
+
+    .profile_banner .text {
+        display: flex;
+        flex-direction: column; /* h2 と p を縦並び */
+    }
+}
+
+/* プロフィール画面用 */
+
 ol, ul {
 	list-style: none;
 }
@@ -3465,6 +3605,59 @@ input, select, textarea {
 			text-transform: uppercase;
 		}
 
+		/* banner、profile_bannerクラスに自分で追加した要素にもアニメーションを適用 */
+		/* プロフィール画像 */
+#banner .profile {
+    -moz-transition: opacity 0.5s ease, -moz-transform 0.5s ease, -moz-filter 0.25s ease;
+    -webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s ease, -webkit-filter 0.25s ease;
+    -ms-transition: opacity 0.5s ease, -ms-transform 0.5s ease, -ms-filter 0.25s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease, filter 0.25s ease;
+    transform: translateX(0);
+    filter: blur(0);
+    opacity: 1;
+    transition-delay: 0.5s; /* 遅延タイミング（好みで調整） */
+}
+
+body.is-preload #banner .profile {
+    opacity: 0;
+    transform: translateX(0.25em);
+    filter: blur(2px);
+}
+
+/* REALITY リンク */
+#banner .reality_text {
+    -moz-transition: opacity 0.5s ease, -moz-transform 0.5s ease, -moz-filter 0.25s ease;
+    -webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s ease, -webkit-filter 0.25s ease;
+    -ms-transition: opacity 0.5s ease, -ms-transform 0.5s ease, -ms-filter 0.25s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease, filter 0.25s ease;
+    transform: translateX(0);
+    filter: blur(0);
+    opacity: 1;
+    transition-delay: 0.7s; /* p より前に出したいなら少し早めに */
+}
+
+body.is-preload #banner .reality_text {
+    opacity: 0;
+    transform: translateX(0.25em);
+    filter: blur(2px);
+}
+
+/* Twitter リンク */
+#banner .text a .fab {
+    transition: opacity 0.5s ease, transform 0.5s ease, filter 0.25s ease;
+    transform: translateX(0);
+    filter: blur(0);
+    opacity: 1;
+    transition-delay: 0.9s;
+}
+
+body.is-preload #banner .text a .fab {
+    opacity: 0;
+    transform: translateX(0.25em);
+    filter: blur(2px);
+}
+
+
 		@media screen and (max-width: 1280px) {
 
 			#banner {
@@ -4158,3 +4351,20 @@ input, select, textarea {
 		}
 
 	}
+
+
+	/* -------------------------------------------------------------------------- */
+/* 新規追加: プロフィールバナーのアニメーション */
+
+/* アニメーション対象要素の共通スタイル（最終状態） */
+/* profile画像、タイトル、リンク、段落すべてを対象 */
+.profile_banner .profile,
+.profile_banner .text h2,
+.profile_banner .text a,
+.profile_banner .text p {
+    opacity: 1;
+    transform: translateY(0);
+    /* is-preloadが外れたときに実行されるトランジションを設定 */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; 
+}
+
