@@ -144,9 +144,7 @@ body {
     margin: 0 auto 1rem auto; /* 中央寄せ */
 }
 
-.profile_banner .text {
-    display: block;
-}
+
 
 /* 画面幅 981px以上：横並び（PC用） */
 @media screen and (min-width: 981px) {
@@ -170,6 +168,9 @@ body {
         flex-direction: column; /* h2 と p を縦並び */
     }
 }
+
+/* リンクの下線を消す（プロフ画面のみ） */
+
 
 /* プロフィール画面用 */
 
