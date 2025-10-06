@@ -34,12 +34,16 @@ body {
 }
 
 /* パーソナルカラー背景 */
+/* 奇数番目と偶数番目とで設定が違うので気を付けること */
+/* 偶数番目はプロフページは別途背景設定が必要 */
+
 /* 煙屋紫煙 */
 .wrapper.spotlight.style_shien{
-	background-color: #9186A8;	
+background-color: #9186A8;	
 }
 	.wrapper.spotlight.style_shien:before, .wrapper.spotlight.style_shien:after {
 		/* 下の行のfillの値を変える */
+		/* fillの値は16進数カラーコードの#をURLエンコードしたものを使用する（#を%23に置き換えるだけ） */
 		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
 	}
 	.wrapper.spotlight.style_shien:before {
@@ -50,70 +54,71 @@ body {
 		box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
 	}
 
-	/* 北条寛也 */
-	.wrapper.spotlight.style_shien{
-	background-color: #9186A8;	
+/* 北条寛也 */
+	.wrapper.spotlight.style_hiro {
+		background-color: #919695;
 	}
-		.wrapper.spotlight.style_shien:before, .wrapper.spotlight.style_shien:after {
-			/* 下の行のfillの値を変える */
-			/* fillの値は16進数カラーコードの#をURLエンコードしたものを使用する（#を%23に置き換えるだけ） */
-			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
-		}
-		.wrapper.spotlight.style_shien:before {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+
+		.wrapper.spotlight.style_hiro:before, .wrapper.spotlight.style_hiro:after {
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%23919695%3B' /%3E%3C/svg%3E");
 		}
 
-		.wrapper.spotlight.style_shien:after {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
-		}
-
-	/* 北条寛也 */
-	.wrapper.spotlight.style_hiro{
-		background-color: #9186A8;	
-	}
-		.wrapper.spotlight.style_hiro:before, .wrapper.spotlight.style_shien:after {
-			/* 下の行のfillの値を変える */
-			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
-		}
 		.wrapper.spotlight.style_hiro:before {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+			box-shadow: inset 0 -1px 0 0 #919695, 0 1px 0 0 #919695;
 		}
 
 		.wrapper.spotlight.style_hiro:after {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
+			box-shadow: inset 0 -1px 0 0 #919695, 0 1px 0 0 #919695;
 		}
 
-	/* 天華 */
-	.wrapper.spotlight.style_tenka{
-		background-color: #9186A8;	
+/* 天華 */
+.wrapper.spotlight.style_tenka{
+	background-color: #ff9eb3;	
+}
+	.wrapper.spotlight.style_tenka:before, .wrapper.spotlight.style_tenka:after {
+		/* 下の行のfillの値を変える */
+		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%23ff9eb3%3B' /%3E%3C/svg%3E");
 	}
-		.wrapper.spotlight.style_tenka:before, .wrapper.spotlight.style_shien:after {
-			/* 下の行のfillの値を変える */
-			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
-		}
-		.wrapper.spotlight.style_tenka:before {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
-		}
-
-		.wrapper.spotlight.style_tenka:after {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
-		}
-
-	/* 毒島くらげ */
-	.wrapper.spotlight.style_kurage{
-		background-color: #9186A8;	
+	.wrapper.spotlight.style_tenka:before {
+		box-shadow: inset 0 -1px 0 0 #ff9eb3, 0 1px 0 0 #ff9eb3;
 	}
-		.wrapper.spotlight.style_kurage:before, .wrapper.spotlight.style_shien:after {
-			/* 下の行のfillの値を変える */
-			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%239186A8%3B' /%3E%3C/svg%3E");
-		}
-		.wrapper.spotlight.style_kurage:before {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
-		}
 
-		.wrapper.spotlight.style_kurage:after {
-			box-shadow: inset 0 -1px 0 0 #9186A8, 0 1px 0 0 #9186A8;
-		}
+	.wrapper.spotlight.style_tenka:after {
+		box-shadow: inset 0 -1px 0 0 #ff9eb3, 0 1px 0 0 #ff9eb3;
+	}
+
+/* ニコ */
+.wrapper.wrapper.spotlight.style_niko {
+	background-color: #000000;
+}
+
+	.wrapper.spotlight.style_niko:before, .wrapper.spotlight.style_niko:after {
+		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%23000000%3B' /%3E%3C/svg%3E");
+	}
+
+	.wrapper.spotlight.style_niko:before {
+		box-shadow: inset 0 -1px 0 0 #000000, 0 1px 0 0 #000000;
+	}
+
+	.wrapper.spotlight.style_niko:after {
+		box-shadow: inset 0 -1px 0 0 #000000, 0 1px 0 0 #000000
+	}
+
+/* 毒島くらげ */
+.wrapper.spotlight.style_kurage{
+	background-color: #c04385;	
+}
+	.wrapper.spotlight.style_kurage:before, .wrapper.spotlight.style_kurage:after {
+		/* 下の行のfillの値を変える */
+		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%23c04385%3B' /%3E%3C/svg%3E");
+	}
+	.wrapper.spotlight.style_kurage:before {
+		box-shadow: inset 0 -1px 0 0 #c04385, 0 1px 0 0 #c04385;
+	}
+
+	.wrapper.spotlight.style_kurage:after {
+		box-shadow: inset 0 -1px 0 0 #c04385, 0 1px 0 0 #c04385
+	}
 
 /* プロフィール画面用 */
 
