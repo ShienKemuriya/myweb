@@ -18,6 +18,10 @@ h2{
     background-color: #fff;
 }
 
+img{
+    margin:auto;
+}
+
 .nagareru {
     background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783);
     background-clip: text;
@@ -71,3 +75,4 @@ h2{
 .himitu{
     color: white;
 }
+
