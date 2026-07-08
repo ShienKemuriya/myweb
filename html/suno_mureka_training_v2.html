@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音楽生成AI完全攻略研修｜Suno & Mureka（改訂版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF7F2;
+    --panel:#FFFFFF;
+    --ink:#221F1F;
+    --ink-soft:#6B6560;
+    --line:#E5DFD3;
+    --suno:#E2542C;
+    --suno-soft:#FCE7DE;
+    --suno-deep:#B33D1C;
+    --mureka:#1F6B78;
+    --mureka-soft:#DCEEEF;
+    --mureka-deep:#134851;
+    --warn-bg:#FFF6E0;
+    --warn-line:#E8C468;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans JP',sans-serif;
+    line-height:1.85;
+    font-size:16px;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 120px;}
+
+  .hero{
+    padding:72px 24px 48px;
+    text-align:center;
+    background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    font-weight:700;
+    letter-spacing:.28em;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    font-weight:900;
+    font-size:clamp(28px,5vw,44px);
+    margin:14px 0 6px;
+    letter-spacing:.02em;
+  }
+  .hero h1 .a{color:var(--suno);}
+  .hero h1 .amp{color:var(--ink-soft);font-weight:500;}
+  .hero h1 .b{color:var(--mureka);}
+  .hero p.lead{
+    max-width:620px;margin:16px auto 0;
+    color:var(--ink-soft);font-size:15px;
+  }
+  .hero .datestamp{
+    display:inline-block;margin-top:18px;
+    font-size:12.5px;color:var(--ink-soft);
+    border:1px solid var(--line);border-radius:20px;
+    padding:4px 16px;background:#fff;
+  }
+
+  .wave{display:block;width:100%;height:34px;margin:36px 0;}
+
+  h2.section-title{
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    font-weight:900;
+    font-size:24px;
+    margin:64px 0 6px;
+    display:flex;align-items:baseline;gap:12px;
+  }
+  h2.section-title .num{
+    font-family:'Zen Old Mincho',serif;
+    font-size:15px;
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  p.section-desc{color:var(--ink-soft);font-size:14.5px;margin:0 0 26px;}
+
+  h3{
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    font-weight:700;
+    font-size:18px;
+    margin:34px 0 12px;
+  }
+  h3.suno{color:var(--suno-deep);}
+  h3.mureka{color:var(--mureka-deep);}
+
+  p{margin:0 0 14px;}
+  ul,ol{margin:0 0 16px;padding-left:1.3em;}
+  li{margin-bottom:6px;}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0 28px;}
+  @media(max-width:680px){.duo{grid-template-columns:1fr;}}
+  .card{
+    border-radius:14px;padding:22px 22px 20px;
+    border:1px solid var(--line);
+    background:var(--panel);
+  }
+  .card.suno{border-top:4px solid var(--suno);}
+  .card.mureka{border-top:4px solid var(--mureka);}
+  .card .tag{
+    display:inline-block;font-family:'Zen Kaku Gothic New',sans-serif;
+    font-weight:700;font-size:13px;padding:3px 10px;border-radius:20px;margin-bottom:12px;
+  }
+  .card.suno .tag{background:var(--suno-soft);color:var(--suno-deep);}
+  .card.mureka .tag{background:var(--mureka-soft);color:var(--mureka-deep);}
+  .card h4{margin:0 0 8px;font-size:17px;font-family:'Zen Kaku Gothic New',sans-serif;}
+  .card p{font-size:14.5px;color:var(--ink);margin-bottom:0;}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0 30px;font-size:14.5px;}
+  caption{text-align:left;font-size:13px;color:var(--ink-soft);margin-bottom:8px;}
+  th,td{border:1px solid var(--line);padding:11px 14px;text-align:left;vertical-align:top;}
+  th{background:#F1ECE1;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:13.5px;}
+  tr:nth-child(even) td{background:#FCFAF6;}
+  td.suno-col{border-left:3px solid var(--suno);}
+  td.mureka-col{border-left:3px solid var(--mureka);}
+
+  .ex{
+    border-radius:12px;padding:18px 20px;margin:14px 0 22px;
+    border:1px solid var(--line);background:var(--panel);
+  }
+  .ex .exlabel{
+    font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:12.5px;
+    letter-spacing:.06em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:8px;
+  }
+  .ex.good{border-left:4px solid #3E8E5C;}
+  .ex.bad{border-left:4px solid #C0432E;}
+  .ex.good .exlabel{color:#3E8E5C;}
+  .ex.bad .exlabel{color:#C0432E;}
+  .ex code, code{
+    font-family:'SFMono-Regular',Consolas,monospace;
+    background:#F1ECE1;padding:2px 6px;border-radius:5px;font-size:13.5px;
+    color:#3a352e;
+  }
+  .ex .code-block{
+    display:block;background:#221F1F;color:#F4EFE4;
+    border-radius:8px;padding:14px 16px;margin-top:8px;
+    font-family:'SFMono-Regular',Consolas,monospace;font-size:13.5px;line-height:1.7;
+    white-space:pre-wrap;
+  }
+  .yaku{color:var(--ink-soft);font-size:13px;display:block;margin-top:4px;}
+
+  .scenario{
+    border-radius:14px;overflow:hidden;border:1px solid var(--line);margin:20px 0 34px;background:var(--panel);
+  }
+  .scenario-head{
+    padding:16px 22px;background:#F1ECE1;
+    font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15.5px;
+  }
+  .scenario-body{padding:20px 22px;}
+  .scenario-body .row{display:grid;grid-template-columns:110px 1fr;gap:10px;margin-bottom:10px;font-size:14.5px;}
+  .scenario-body .row .k{color:var(--ink-soft);font-weight:700;font-family:'Zen Kaku Gothic New',sans-serif;font-size:13px;padding-top:2px;}
+
+  .warn{
+    background:var(--warn-bg);border:1px solid var(--warn-line);
+    border-radius:12px;padding:16px 20px;margin:16px 0 26px;font-size:14.5px;
+  }
+  .warn strong{font-family:'Zen Kaku Gothic New',sans-serif;}
+
+  .cheat{width:100%;border-collapse:collapse;font-size:13.8px;margin:14px 0 30px;}
+  .cheat th{background:#221F1F;color:#F4EFE4;font-family:'Zen Kaku Gothic New',sans-serif;padding:10px 12px;}
+  .cheat td{border:1px solid var(--line);padding:9px 12px;}
+  .cheat td.t{white-space:nowrap;font-family:'SFMono-Regular',Consolas,monospace;font-size:12.8px;background:#F7F3EA;}
+  .cheat-cat{
+    font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15.5px;
+    margin:30px 0 4px;padding-left:12px;border-left:4px solid var(--ink);
+  }
+  .cheat-cat.s{border-left-color:var(--suno);}
+  .cheat-cat.m{border-left-color:var(--mureka);}
+  p.cheat-note{color:var(--ink-soft);font-size:13px;margin:0 0 8px;}
+
+  /* decision flow */
+  .flow{margin:22px 0 34px;}
+  .flow .q{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin:0 auto 0;max-width:640px;
+    font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;
+    text-align:center;position:relative;
+  }
+  .flow .branches{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px;margin:0 auto;
+  }
+  .flow .arrowline{
+    display:flex;justify-content:space-around;max-width:640px;margin:0 auto;
+    color:var(--ink-soft);font-size:20px;line-height:1.4;padding:2px 0;
+  }
+  .flow .ans{
+    border-radius:12px;padding:12px 16px;font-size:14px;text-align:center;
+  }
+  .flow .ans .yn{
+    display:block;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:12.5px;
+    color:var(--ink-soft);margin-bottom:2px;
+  }
+  .flow .ans.to-mureka{background:var(--mureka-soft);border:1px solid var(--mureka);}
+  .flow .ans.to-suno{background:var(--suno-soft);border:1px solid var(--suno);}
+  .flow .ans.next{background:#F1ECE1;border:1px solid var(--line);}
+  .flow .spacer{height:14px;}
+  
+  .flow .branches {position: relative;}
+  .flow .ans {transition: transform 0.2s;}
+  .flow .ans:hover {transform: translateY(-2px);}
+
+  .checklist{list-style:none;padding:0;margin:0 0 20px;}
+  .checklist li{
+    padding:10px 14px 10px 40px;position:relative;border:1px solid var(--line);
+    border-radius:8px;margin-bottom:8px;background:var(--panel);font-size:14.5px;
+  }
+  .checklist li::before{
+    content:"";position:absolute;left:14px;top:12px;width:16px;height:16px;
+    border:2px solid var(--ink-soft);border-radius:4px;
+  }
+
+  .legend{
+    font-size:13px;color:var(--ink-soft);background:var(--panel);
+    border:1px dashed var(--line);border-radius:10px;padding:10px 16px;margin:0 0 14px;
+  }
+
+  footer{
+    text-align:center;color:var(--ink-soft);font-size:12.5px;
+    margin-top:80px;padding-top:24px;border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">研修資料 ｜ 音楽生成AIプロンプト設計（改訂版）</div>
+  <h1><span class="a">Suno</span><span class="amp"> & </span><span class="b">Mureka</span> 完全攻略ガイド</h1>
+  <p class="lead">2大音楽生成AIの設計思想の違いを理解し、それぞれに最適化されたプロンプトを組み立てられるようになることを目的とした研修用マニュアルです。全タグに日本語の意味を併記しています。</p>
+  <div class="datestamp">⚠ 本資料の仕様情報は 2026年7月時点 のものです。両サービスとも仕様変更が頻繁なため、業務利用前に必ず公式の最新情報を確認してください。</div>
+</div>
+
+<div class="wrap">
+
+<svg class="wave" viewBox="0 0 920 34" preserveAspectRatio="none">
+  <path d="M0,17 C 60,2 120,32 180,17 C 240,2 300,32 360,17 C 420,2 480,32 540,17 C 600,2 660,32 720,17 C 780,2 840,32 900,17 L920,17" fill="none" stroke="url(#g1)" stroke-width="2.5"/>
+  <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#E2542C"/><stop offset="100%" stop-color="#1F6B78"/>
+  </linearGradient></defs>
+</svg>
+
+<h2 class="section-title"><span class="num">01</span>両ツールの基本思想</h2>
+<p class="section-desc">同じ「音楽生成AI」でも、SunoとMurekaは根本的な設計思想が異なります。まずこの違いを頭に入れておくと、後述するテクニックの「なぜそうするのか」が理解しやすくなります。</p>
+
+<div class="duo">
+  <div class="card suno">
+    <div class="tag">言葉・感情重視型</div>
+    <h4>Suno（スノ）</h4>
+    <p>テキストからドラマチックな音楽を創り出すことに長けたAI。言葉の行間や「エモい」といった抽象的な表現を汲み取るのが得意な一方、生成結果には偶発性（いわゆるガチャ要素）があり、狙った通りに仕上げるには指示を絞り込む「引き算」のコツが必要です。</p>
+  </div>
+  <div class="card mureka">
+    <div class="tag">マルチモーダル型</div>
+    <h4>Mureka（ムレカ）</h4>
+    <p>視覚・聴覚素材を音楽に変換できるAI。画像や音声ファイル、さらには鼻歌までも指示書として使える拡張性を持ち、独自技術「MusiCoT（Music Chain-of-Thought）」により、曲の構成など人間の指示に対して非常に実直かつロジカルに組み立てます。</p>
+  </div>
+</div>
+
+<h2 class="section-title"><span class="num">02</span>どちらを使うか：判断フロー</h2>
+<p class="section-desc">案件・目的に応じたツール選択の目安です。上から順に判定してください。</p>
+
+<div class="flow">
+  <div class="q">Q1. 参照素材（画像・参考音源・鼻歌・クローンしたい声）を使いたい？</div>
+  <div class="arrowline"><span>↓</span><span>↓</span></div>
+  <div class="branches">
+    <div class="ans to-mureka"><span class="yn">YES</span><strong>Mureka</strong> 一択（Sunoは素材入力不可）</div>
+    <div class="ans next"><span class="yn">NO</span>Q2へ</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="q">Q2. 過去に作った既存曲の「続き」を作りたい？</div>
+  <div class="arrowline"><span>↓</span><span>↓</span></div>
+  <div class="branches">
+    <div class="ans to-suno"><span class="yn">YES</span><strong>Suno</strong>（Extend機能が強み）</div>
+    <div class="ans next"><span class="yn">NO</span>Q3へ</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="q">Q3. 曲の構成（展開）を厳密にコントロールしたい？</div>
+  <div class="arrowline"><span>↓</span><span>↓</span></div>
+  <div class="branches">
+    <div class="ans to-mureka"><span class="yn">YES</span><strong>Mureka</strong>（指示に実直・構成が安定）</div>
+    <div class="ans to-suno"><span class="yn">NO／偶発性も楽しみたい</span><strong>Suno</strong>（数を回してアタリを引く）</div>
+  </div>
+</div>
+
+<h2 class="section-title"><span class="num">03</span>共通点と決定的な相違点</h2>
+<p class="section-desc">操作画面が似ているため混同しがちですが、実際の挙動には明確な違いがあります。</p>
+
+<h3>共通点（なぜ似ていると感じるのか）</h3>
+<ul>
+  <li><strong>インターフェース構造：</strong>どちらも「簡単モード（文章を丸ごと入力するだけ）」と「カスタムモード（歌詞とスタイルを分離して入力）」の2つのアプローチを持つ。</li>
+  <li><strong>メタデータによる制御：</strong>カスタムモードのStyle欄では、「ジャンル・テンポ（BPM）・楽器・声質」をカンマ区切りの単語（タグ）で指定する基本ルールが共通している。</li>
+  <li><strong>構造タグの認識：</strong>歌詞欄で <code>[Intro]</code> <code>[Verse]</code> <code>[Chorus]</code> <code>[Outro]</code> のような角括弧タグを使って曲展開を指示する仕組みも同様に機能する。</li>
+</ul>
+
+<h3>決定的な相違点一覧</h3>
+<table>
+  <thead>
+    <tr><th>機能・特性</th><th>Suno</th><th>Mureka</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>指示のメディア</td><td class="suno-col">テキスト（言葉）のみ</td><td class="mureka-col">テキスト＋画像・音声ファイル・鼻歌</td></tr>
+    <tr><td>入力の制限</td><td class="suno-col">モデルバージョンにより上限が異なる（下記4-1参照）。上限超過分は<strong>警告なしで無視される</strong>ため、「引き算」と「重要タグの前方配置」が必須</td><td class="mureka-col">簡単モードは約300字の説明文。カスタムでは画像や参照音源で情報を補完できる</td></tr>
+    <tr><td>AIの解釈の癖</td><td class="suno-col">空気を読んで自動的にサビを盛り上げる</td><td class="mureka-col">指示に対して非常に実直（展開の念押しが必要）</td></tr>
+    <tr><td>独自エコシステム</td><td class="suno-col">既存曲の続きを作る「Extend」、除外指定「Exclude Styles」</td><td class="mureka-col">ボイスクローン、参照曲リミックス、鼻歌からのメロディ指定、ステム（パート別）書き出し</td></tr>
+  </tbody>
+</table>
+
+<svg class="wave" viewBox="0 0 920 34" preserveAspectRatio="none">
+  <path d="M0,17 C 60,32 120,2 180,17 C 240,32 300,2 360,17 C 420,32 480,2 540,17 C 600,32 660,2 720,17 C 780,32 840,2 900,17 L920,17" fill="none" stroke="#E2542C" stroke-width="2.5" opacity="0.55"/>
+</svg>
+
+<h2 class="section-title"><span class="num">04</span>Suno プロンプト完全攻略マニュアル</h2>
+<p class="section-desc">Sunoをハックする鍵は「引き算」と「重要タグの前方配置」です。文字数上限はモデルにより異なりますが、詰め込むほど良くなるわけではありません。</p>
+
+<h3 class="suno">4-1. モデルバージョン別の入力上限（2026年7月時点）</h3>
+<table>
+  <thead><tr><th>モデル</th><th>Style欄</th><th>歌詞欄</th><th>タイトル</th></tr></thead>
+  <tbody>
+    <tr><td>V4.5 / V5 / V5.5（現行）</td><td>約1,000文字</td><td>約5,000文字</td><td>100文字</td></tr>
+    <tr><td>V4 以前</td><td>約200文字</td><td>約3,000文字</td><td>80文字</td></tr>
+  </tbody>
+</table>
+<div class="warn">
+  <strong>上限が増えても「引き算」は必要：</strong>上限を超えたテキストは警告なしに切り捨てられます。また上限内でも、Sunoは<strong>先頭に近いタグほど重視する</strong>ため、重要な要素（ジャンル・テンポ）は必ず左側に置き、歌詞欄も約3,000文字を超えると曲を急いだり構成を省略したりする傾向があるため、詰め込みは避けてください。
+</div>
+
+<h3 class="suno">4-2. 【Style of Music】欄の4大黄金構成</h3>
+<p>文章ではなく、「名詞・形容詞をカンマで区切る」のが鉄則です。重要度の高い順に左から並べます（英語推奨）。</p>
+<ol>
+  <li><strong>メインジャンル：</strong>J-Pop / Synthwave / Modern Metal / City Pop など</li>
+  <li><strong>テンポ・曲調：</strong>BPM 125 / Upbeat / Melancholic / Groovy など</li>
+  <li><strong>主役の楽器（3つまで）：</strong>Emotional Piano / Acoustic Guitar / Synthesizer など</li>
+  <li><strong>ボーカルの特徴：</strong>Female Clear Vocal / Male Gritty Vocal / Androgynous など</li>
+</ol>
+
+<div class="ex bad">
+  <div class="exlabel">悪い例</div>
+  <p>Sad J-Pop song with piano and guitar that makes me cry.</p>
+  <span class="yaku">訳：「ピアノとギターの入った、泣ける悲しいJ-Popの曲」</span>
+  <p style="color:var(--ink-soft);font-size:13.5px;margin-top:6px;">→ 文章になっており、AIがどの要素を優先すべきか判断できない。「泣ける」という抽象的な感情表現も伝わりにくい。</p>
+</div>
+<div class="ex good">
+  <div class="exlabel">良い例</div>
+  <p><code>J-Pop, 125 BPM, Catchy, Emotional Piano, Electric Guitar, Female Clear Vocal</code></p>
+  <span class="yaku">訳：J-Pop／BPM125／耳に残る（キャッチーな）／感情豊かなピアノ／エレキギター／透明感のある女性ボーカル</span>
+  <p style="color:var(--ink-soft);font-size:13.5px;margin-top:6px;">→ ジャンル→テンポ→楽器→ボーカルの順で単語を並べているため、AIが優先順位を把握しやすい。</p>
+</div>
+
+<p><strong>ジャンル違いでの具体例：</strong></p>
+<div class="ex good">
+  <div class="exlabel">例：疾走感のあるシンセウェイブ（インスト）</div>
+  <p><code>Synthwave, 118 BPM, Driving, Retro Synth Bass, Analog Synth Lead, Instrumental</code></p>
+  <span class="yaku">訳：シンセウェイブ（80年代風シンセ音楽）／BPM118／疾走感のある／レトロなシンセベース／アナログシンセの主旋律／歌なし（楽器のみ）</span>
+</div>
+<div class="ex good">
+  <div class="exlabel">例：落ち着いたシティポップ</div>
+  <p><code>City Pop, 94 BPM, Nostalgic, Soft Upright Piano, Warm Bass Guitar, Male Smooth Vocal</code></p>
+  <span class="yaku">訳：シティポップ／BPM94／懐かしい・ノスタルジックな／柔らかいアップライトピアノ／温かみのあるベースギター／滑らかな男性ボーカル</span>
+</div>
+<div class="ex good">
+  <div class="exlabel">例：重厚なモダンメタル</div>
+  <p><code>Modern Metal, 150 BPM, Aggressive, Distorted Guitar, Double Kick Drum, Male Powerful Vocal</code></p>
+  <span class="yaku">訳：モダンメタル／BPM150／攻撃的な・激しい／歪んだギター／ツーバス（連打する2つのバスドラム）／力強い男性ボーカル</span>
+</div>
+
+<h3 class="suno">4-3. 【Exclude Styles】欄：入れたくない要素の除外指定</h3>
+<p>Sunoには「入れたい要素」だけでなく<strong>「入れたくない要素」を指定する欄（Exclude Styles／ネガティブタグ）</strong>があります。攻めの指示（Style欄）と守りの指示（Exclude欄）をセットで使うと、生成の安定度が大きく向上します。</p>
+<div class="ex good">
+  <div class="exlabel">例：静かなピアノBGMを作りたいとき</div>
+  <p><strong>Style欄：</strong><code>Ambient Piano, 70 BPM, Calm, Instrumental</code><br>
+  <span class="yaku">訳：アンビエント（環境音楽風）ピアノ／BPM70／穏やかな／歌なし</span></p>
+  <p><strong>Exclude Styles欄：</strong><code>vocals, drums, heavy metal, upbeat</code><br>
+  <span class="yaku">訳：ボーカル、ドラム、ヘビーメタル、アップテンポ（明るく速い曲調）を除外</span></p>
+</div>
+
+<h3 class="suno">4-4. 【Lyrics】欄の展開制御タグ（構造タグ）</h3>
+<p>歌詞の前に角括弧 <code>[ ]</code> を配置し、AIに展開を強制します。タグ一覧と日本語の意味は第10章のチートシートにまとめていますが、基本の使い方は以下の通りです。</p>
+<table>
+  <thead><tr><th>タグ</th><th>意味（日本語）</th><th>使い方のコツ</th></tr></thead>
+  <tbody>
+    <tr><td><code>[Intro]</code></td><td>イントロ（前奏）</td><td><code>[Intro: Piano Solo]</code>（ピアノソロのイントロ）のように楽器を指定すると、高確率でそのソロから始まる。</td></tr>
+    <tr><td><code>[Verse]</code></td><td>Aメロ（歌の導入部）</td><td>音数を減らし、落ち着いて歌わせる。サビとの対比を意識する。</td></tr>
+    <tr><td><code>[Pre-Chorus]</code></td><td>Bメロ（サビ前の助走部分）</td><td>Aメロとサビの橋渡し。徐々に盛り上げたいときに挟む。</td></tr>
+    <tr><td><code>[Chorus]</code></td><td>サビ（曲の最も盛り上がる部分）</td><td>Sunoはこのタグを認識すると自動的に盛り上げてくれる。</td></tr>
+    <tr><td><code>[Bridge]</code></td><td>Cメロ（大サビ前の転換部）</td><td>転調や展開の切り替えを促す。</td></tr>
+    <tr><td><code>[Instrumental Break]</code></td><td>間奏（歌のない楽器演奏部分）</td><td>2番の後などに挟むと曲に緩急がつく。<code>[Guitar Solo]</code>（ギターソロ）等の指定も可。</td></tr>
+    <tr><td><code>[Outro]</code></td><td>アウトロ（後奏・曲の締め）</td><td>曲を自然に完結させるために必須。省略すると唐突に終わることがある。</td></tr>
+  </tbody>
+</table>
+
+<div class="ex good">
+  <div class="exlabel">歌詞欄の記述例（各タグの意味を注記）</div>
+  <div class="code-block">[Intro: Piano Solo]     ← ピアノソロで始まるイントロ
+
+[Verse]                 ← Aメロ
+（1番の歌詞）
+
+[Pre-Chorus]            ← Bメロ（サビへの助走）
+（Bメロの歌詞）
+
+[Chorus]                ← サビ
+（サビの歌詞）
+
+[Instrumental Break]    ← 間奏
+
+[Verse]                 ← 2番Aメロ
+（2番の歌詞）
+
+[Chorus]                ← サビ（繰り返し）
+（サビの歌詞）
+
+[Bridge]                ← Cメロ（転調・展開替え）
+（Cメロの歌詞）
+
+[Chorus]                ← ラスサビ
+（サビの歌詞）
+
+[Outro]                 ← アウトロ（締め）
+[Fade Out]              ← 徐々に音量を下げて終わる</div>
+</div>
+
+<h3 class="suno">4-5. Sunoの盲点とリスク回避</h3>
+<div class="warn">
+  <strong>詰め込みすぎの罠：</strong>単語を多く入れすぎると、AIが後方の指示を無視するか、ジャンルそのものが崩壊することがあります。「主役の楽器は3つまで」を目安に絞り込み、重要タグは必ず先頭に置いてください。
+</div>
+<div class="warn">
+  <strong>インスト（歌なし）の制御：</strong>BGMを作りたい場合は、インストトグルをONにするだけでは不十分です。Style欄に <code>Instrumental</code>（歌なし）を明記し、さらにExclude Styles欄に <code>vocals, humming</code>（ボーカル、ハミング）を入れる三段構えで、謎のハミングの混入を防ぎます。
+</div>
+
+<svg class="wave" viewBox="0 0 920 34" preserveAspectRatio="none">
+  <path d="M0,17 C 60,2 120,32 180,17 C 240,2 300,32 360,17 C 420,2 480,32 540,17 C 600,2 660,32 720,17 C 780,2 840,32 900,17 L920,17" fill="none" stroke="#1F6B78" stroke-width="2.5" opacity="0.55"/>
+</svg>
+
+<h2 class="section-title"><span class="num">05</span>Mureka プロンプト完全攻略マニュアル</h2>
+<p class="section-desc">Murekaをハックする鍵は「画像への役割分担」と「実直なAIへの念押し」です。</p>
+
+<h3 class="mureka">5-1. まず押さえる：3つの生成モード</h3>
+<table>
+  <thead><tr><th>モード</th><th>入力するもの</th><th>向いている用途</th></tr></thead>
+  <tbody>
+    <tr><td>簡単モード</td><td>約300字以内の説明文（日本語可）</td><td>とにかく速く試したいとき。後述の「AI翻訳ロンダリング」の起点にも。</td></tr>
+    <tr><td>参照曲モード</td><td>参考にしたい音源ファイル</td><td>既存曲・過去の生成曲の雰囲気を踏襲したいとき。リミックスや「Sunoボツ曲の救済」にも使う。</td></tr>
+    <tr><td>メロディモチーフモード</td><td>鼻歌・自作デモの録音</td><td>頭の中のメロディを起点に曲を組み立てたいとき（プランにより有料機能）。</td></tr>
+  </tbody>
+</table>
+<p style="color:var(--ink-soft);font-size:13.5px;">補足：完成した楽曲はWAV形式での書き出しや、ステム（ボーカル・楽器などパート別の音源）書き出しにも対応しており、外部でのミキシング・動画編集との連携がしやすいのも特徴です（プラン依存）。</p>
+
+<h3 class="mureka">5-2. 【Style】欄：画像との役割分担</h3>
+<p>Murekaは画像認識が極めて強力です。そのため、Style欄のテキストは簡潔にし、「画像では説明できない音楽的要素」だけをテキストで補足するのが正解です。</p>
+<div class="duo">
+  <div class="card mureka">
+    <div class="tag">画像に任せる要素</div>
+    <p>「切ない」「夜のネオン」「近未来」「スモーキーな」など、雰囲気や世界観にまつわる抽象的な表現。</p>
+  </div>
+  <div class="card mureka">
+    <div class="tag">テキストで指定する要素</div>
+    <p>ジャンル、BPM、楽器構成、声質など、画像だけでは伝わらない音楽的パラメータ。</p>
+  </div>
+</div>
+
+<div class="ex good">
+  <div class="exlabel">例：夜のドライブをイメージしたシティポップ</div>
+  <p><strong>Style欄：</strong><code>City Pop, BPM 94, Soft Upright Piano, Low Soft Female Vocal</code><br>
+  <span class="yaku">訳：シティポップ／BPM94／柔らかいアップライトピアノ／低く柔らかい女性ボーカル</span></p>
+  <p><strong>添付ファイル：</strong>深夜のネオン街と雨を写したイラストを1枚添付</p>
+</div>
+<div class="ex good">
+  <div class="exlabel">例：爽やかな朝をイメージしたアコースティックポップ</div>
+  <p><strong>Style欄：</strong><code>Acoustic Pop, BPM 100, Warm Acoustic Guitar, Bright Female Vocal</code><br>
+  <span class="yaku">訳：アコースティックポップ／BPM100／温かみのあるアコースティックギター／明るい女性ボーカル</span></p>
+  <p><strong>添付ファイル：</strong>朝日が差し込むカフェの窓辺の写真を1枚添付</p>
+</div>
+
+<h3 class="mureka">5-3. 【Lyrics】欄：実直なAIへの「連動・念押し指示」</h3>
+<p>MurekaはSunoほど「空気を読んで勝手に盛り上げる」ことをしません。サビを爆発させたい場合は、Style欄と歌詞欄の<strong>両方</strong>で念押し（連動）をする必要があります。</p>
+<ul>
+  <li>歌詞欄に <code>[Chorus]</code>（サビ）と書くだけでなく、その直前に <code>[Build-up]</code>（ビルドアップ＝盛り上がりへの助走）や <code>[Drop]</code>（ドロップ＝溜めの後に一気に爆発する箇所）を挟む。</li>
+  <li>さらにStyle欄にも <code>Dynamic structure, Explosive chorus</code>（メリハリのある構成、爆発的なサビ）と記述し、展開の緩急をAIに強く意識させる。</li>
+</ul>
+<div class="ex good">
+  <div class="exlabel">連動指示の例（歌詞欄）</div>
+  <div class="code-block">[Verse]        ← Aメロ
+（落ち着いた歌詞）
+
+[Build-up]     ← 盛り上がりへの助走
+（徐々に高まる歌詞・掛け声など）
+
+[Chorus]       ← サビ
+（サビの歌詞）</div>
+</div>
+<div class="ex good">
+  <div class="exlabel">連動指示の例（Style欄に併記）</div>
+  <p><code>Pop Rock, BPM 132, Dynamic structure, Explosive chorus, Powerful Female Vocal</code></p>
+  <span class="yaku">訳：ポップロック／BPM132／メリハリのある構成／爆発的なサビ／力強い女性ボーカル</span>
+</div>
+
+<h3 class="mureka">5-4. Murekaの盲点とリスク回避</h3>
+<div class="warn">
+  <strong>コンフリクト（情報衝突）の罠：</strong>「明るいアイドルの画像」を添付しながらStyle欄に<code>Heavy Metal</code>（ヘビーメタル）と書くような矛盾した指示を出すと、AIが混乱してメロディが崩壊します。画像とテキストの方向性は必ず一致させてください。
+</div>
+<div class="warn">
+  <strong>ボイスクローン時の注意点：</strong>自分の声を学習させて歌わせる場合、Style欄の「ボーカル指定（Male/Femaleなど）」をクローン声の性別と一致させておくと、声の再現度が安定します。また、<strong>他人の声のクローンには必ず本人の同意が必要</strong>です（第11章参照）。
+</div>
+
+<svg class="wave" viewBox="0 0 920 34" preserveAspectRatio="none">
+  <path d="M0,17 C 60,32 120,2 180,17 C 240,32 300,2 360,17 C 420,32 480,2 540,17 C 600,32 660,2 720,17 C 780,32 840,2 900,17 L920,17" fill="none" stroke="url(#g2)" stroke-width="2.5"/>
+  <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#1F6B78"/><stop offset="100%" stop-color="#E2542C"/>
+  </linearGradient></defs>
+</svg>
+
+<h2 class="section-title"><span class="num">06</span>日本語歌詞の「読み間違い」対策（両ツール共通）</h2>
+<p class="section-desc">日本語の歌詞は、漢字の読み方をAIが誤るケースが両ツール共通で発生します。特に人名・固有名詞・複数の読みを持つ漢字は要注意です。</p>
+<ul>
+  <li><strong>読ませたい通りにひらがなで書く：</strong>「辛い」→「つらい」（「からい」と読まれるのを防ぐ）、「行った」→「いった／おこなった」のどちらかを明示。</li>
+  <li><strong>固有名詞・造語はカタカナかローマ字に：</strong>ブランド名やキャラクター名は読みが安定するカタカナ表記が安全。</li>
+  <li><strong>英単語の発音が不安な場合はカタカナに開く：</strong>「Sunday」→「サンデー」のように書くと日本語ボーカルの中で自然になじみやすい。</li>
+  <li><strong>区切りを明確に：</strong>読点や改行で語の切れ目を示すと、意図しない箇所での連結読みを防げる。</li>
+  <li><strong>数字は読みを書く：</strong>「2026」→「にーぜろにーろく」「二千二十六」など、意図する読み方で表記する。</li>
+</ul>
+<div class="ex good">
+  <div class="exlabel">修正例</div>
+  <p>修正前：<code>今日も辛い一日が終わる</code>（「からい」と読まれるリスク）<br>
+  修正後：<code>きょうも つらい いちにちが おわる</code>（読み・区切りが明確）</p>
+</div>
+
+<h2 class="section-title"><span class="num">07</span>実践演習：同じ企画を両ツールに落とし込む</h2>
+<p class="section-desc">同じ楽曲企画（お題）から出発しても、SunoとMurekaでは指示の組み立て方がまったく異なります。以下の2つの演習で、その「翻訳」の考え方を確認してください。</p>
+
+<div class="scenario">
+  <div class="scenario-head">演習A：夏フェスのオープニングSE用アップテンポポップス</div>
+  <div class="scenario-body">
+    <div class="row"><div class="k">企画意図</div><div>青空の下、観客のテンションを一気に引き上げる、明るく開放的なオープニング曲。</div></div>
+    <div class="row"><div class="k">Suno向け</div><div><code>Summer Pop, 128 BPM, Anthemic, Bright Synth, Group Chant, Male Energetic Vocal</code><br><span class="yaku">訳：サマーポップ／BPM128／賛歌のような（大合唱向きの）／明るいシンセ／大勢の掛け声／エネルギッシュな男性ボーカル</span><span style="color:var(--ink-soft);font-size:13.5px;">→ 「開放感」を Anthemic という一語に凝縮し、タグ数を節約。</span></div></div>
+    <div class="row"><div class="k">Mureka向け</div><div><code>Summer Pop, BPM 128, Bright Synth Lead, Dynamic structure</code><br><span class="yaku">訳：サマーポップ／BPM128／明るいシンセの主旋律／メリハリのある構成</span>添付画像：夏フェス会場と青空、観客の写真<br><span style="color:var(--ink-soft);font-size:13.5px;">→ 「開放感」「夏らしさ」は画像に丸投げし、テキストは音楽的パラメータのみに絞る。</span></div></div>
+  </div>
+</div>
+
+<div class="scenario">
+  <div class="scenario-head">演習B：企業ブランドムービー用の壮大なオーケストラBGM</div>
+  <div class="scenario-body">
+    <div class="row"><div class="k">企画意図</div><div>企業の歴史や挑戦を映すムービーの後半、感動的に盛り上がるインストゥルメンタル。</div></div>
+    <div class="row"><div class="k">Suno向け</div><div><code>Cinematic Orchestral, 90 BPM, Uplifting Strings, Powerful Brass, Instrumental</code><br><span class="yaku">訳：映画音楽風オーケストラ／BPM90／高揚感のある弦楽器／力強い金管楽器／歌なし</span><span style="color:var(--ink-soft);font-size:13.5px;">→ 歌なしのため <code>Instrumental</code> を必ず明記し、さらにExclude Styles欄に <code>vocals, humming</code> を入れてハミングの混入を防ぐ。</span></div></div>
+    <div class="row"><div class="k">Mureka向け</div><div><code>Cinematic Orchestral, BPM 90, Uplifting Strings, Epic Brass, Instrumental, Dynamic structure</code><br><span class="yaku">訳：映画音楽風オーケストラ／BPM90／高揚感のある弦楽器／壮大な金管楽器／歌なし／メリハリのある構成</span>添付画像：企業のオフィスや社員が働く様子の写真<br><span style="color:var(--ink-soft);font-size:13.5px;">→ ストーリー性のある展開を意識し、歌詞欄には <code>[Build-up]</code>（盛り上がりへの助走）→ <code>[Climax]</code>（クライマックス・頂点）の順で構成タグだけを入力（歌詞なし）。</span></div></div>
+  </div>
+</div>
+
+<h2 class="section-title"><span class="num">08</span>3軸評価による戦略の選択</h2>
+<p class="section-desc">目的に応じて、時間・コスト・技術的難易度のバランスを見ながらアプローチを選びます。</p>
+<div class="legend">凡例（各3〜4段階）：<strong>時間</strong>＝★が多いほど手軽・速く着手できる ／ <strong>コスト</strong>＝★が多いほどクレジット消費が大きい ／ <strong>難易度</strong>＝★が多いほど技術的に難しい</div>
+<table>
+  <thead><tr><th>戦略シナリオ</th><th>時間（手軽さ）</th><th>コスト（消費）</th><th>技術的難易度</th><th>即日着手できる最小アクション</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>① Suno王道流用<br><span style="color:var(--ink-soft);font-size:13px;">（最小リソース）</span></td>
+      <td>★★★★</td><td>☆</td><td>★☆☆</td>
+      <td>過去にSunoで成功したタグをそのままMurekaのカスタム欄にコピペし、挙動の差を確かめる。</td>
+    </tr>
+    <tr>
+      <td>② Murekaフル活用<br><span style="color:var(--ink-soft);font-size:13px;">（最大リターン）</span></td>
+      <td>★★</td><td>★☆</td><td>★★★</td>
+      <td>企画の世界観（夜のネオン、朝のカフェなど）に合う画像を1枚用意し、Murekaに読み込ませて生成する。</td>
+    </tr>
+    <tr>
+      <td>③ 役割の厳密分離<br><span style="color:var(--ink-soft);font-size:13px;">（リスク回避）</span></td>
+      <td>★★</td><td>★★</td><td>★★☆</td>
+      <td>BGM（インスト）を作りたい時は、Style欄の<code>Instrumental</code>明記と除外指定を徹底し、ボーカルノイズの混入を防ぐ。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title"><span class="num">09</span>応用テクニック</h2>
+<p class="section-desc">基本を押さえたうえで、さらに一歩踏み込んだ活用法です。</p>
+
+<h3>9-1. Sunoの「ボツ曲」をMurekaで救済するリサイクル術</h3>
+<p>Sunoを繰り返し生成していると、「メロディや伴奏は最高なのに歌い出しにノイズが入った」「構成が途中で崩れた」といった、部分的に優れた失敗作が生まれることがあります。これを捨てずに、その音源ファイルをMurekaの参照曲モード（オーディオリファレンス）で読み込ませ、「このメロディをベースに、綺麗な構成でリミックスして」と指示するのが有効です。Sunoの生み出す「偶発的な良さ」を、Murekaの「実直な論理構成力」で整える組み合わせ技です。</p>
+<ol>
+  <li>Sunoで生成した音源のうち、部分的に気に入ったものを保存する。</li>
+  <li>Murekaの参照曲モードで、その音源ファイルを添付する。</li>
+  <li>歌詞欄・Style欄には「このメロディの雰囲気を踏襲しつつ、構成を整えてほしい」旨を明記する。</li>
+</ol>
+
+<h3>9-2. 「AI翻訳ロンダリング」による高精度タグの逆輸入</h3>
+<p>Murekaの簡単モード（日本語対応）に「深夜のバーで、冷たい雨の音を聴きながら、アンニュイに歌うシティポップ」のように日本語で丸ごと指示を出して生成させます。生成された曲の詳細情報には、AIが自動生成した英語の音楽タグが表示されるため、それをコピーしてSunoのStyle欄に転用します。人間が単語だけで思いつくよりも精度の高いタグの組み合わせが手に入ります。</p>
+<ol>
+  <li>Murekaの簡単モードに、作りたい曲のイメージを日本語の文章でそのまま入力する。</li>
+  <li>生成後、曲の詳細情報欄に表示される英語タグを確認・コピーする。</li>
+  <li>コピーしたタグをSunoのStyle欄に貼り付け、必要に応じて調整する。</li>
+</ol>
+
+<h2 class="section-title"><span class="num">10</span>タグ大全チートシート（日本語の意味つき）</h2>
+<p class="section-desc">プロンプト作成時にすぐ参照できる一覧です。すべて英語タグ＋日本語の意味を併記しています。基本的に両ツール共通で使えます。</p>
+
+<div class="cheat-cat">A. ジャンル（メインの音楽ジャンル。Style欄の先頭に置く）</div>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・ニュアンス</th></tr></thead>
+  <tbody>
+    <tr><td class="t">J-Pop</td><td>日本のポップス全般。日本語詞との相性がよい。</td></tr>
+    <tr><td class="t">City Pop</td><td>シティポップ。1980年代の日本の都会的・洗練されたポップス。</td></tr>
+    <tr><td class="t">Synthwave</td><td>シンセウェイブ。80年代風シンセサイザー音楽。レトロフューチャーな雰囲気。</td></tr>
+    <tr><td class="t">Lo-fi</td><td>ローファイ。あえて音質を粗くした、落ち着いた作業用BGM系サウンド。</td></tr>
+    <tr><td class="t">Acoustic Pop</td><td>アコースティックポップ。生楽器中心の温かいポップス。</td></tr>
+    <tr><td class="t">Pop Rock</td><td>ポップロック。キャッチーさとバンドサウンドの中間。</td></tr>
+    <tr><td class="t">Modern Metal</td><td>モダンメタル。重低音・高速リフの現代的メタル。</td></tr>
+    <tr><td class="t">EDM</td><td>エレクトロニック・ダンス・ミュージック。クラブ系電子音楽。</td></tr>
+    <tr><td class="t">Hip-Hop</td><td>ヒップホップ。ラップとビート中心。</td></tr>
+    <tr><td class="t">R&amp;B</td><td>リズム・アンド・ブルース。滑らかで艶のあるボーカル曲。</td></tr>
+    <tr><td class="t">Jazz Ballad</td><td>ジャズバラード。ゆったりと歌い上げるジャズ調の曲。</td></tr>
+    <tr><td class="t">Bossa Nova</td><td>ボサノバ。ブラジル発のリラックスした軽やかな音楽。</td></tr>
+    <tr><td class="t">Folk</td><td>フォーク。アコースティックギター中心の素朴な音楽。</td></tr>
+    <tr><td class="t">Cinematic Orchestral</td><td>映画音楽風オーケストラ。壮大で映像的なサウンド。</td></tr>
+    <tr><td class="t">Ambient</td><td>アンビエント（環境音楽）。メロディよりも空気感・持続音を重視。</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-cat">B. テンポ・曲調・ムード（曲の速さと感情の方向性）</div>
+<p class="cheat-note">BPM＝Beats Per Minute（1分間の拍数）。目安：バラード 60〜80／ミドルテンポ 90〜110／アップテンポ 120〜140／激しい曲 150以上。</p>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・ニュアンス</th></tr></thead>
+  <tbody>
+    <tr><td class="t">BPM 94（数値指定）</td><td>テンポを数値で直接指定。「94 BPM」の語順でも可。</td></tr>
+    <tr><td class="t">Upbeat</td><td>明るく軽快な。テンションの上がる曲調。</td></tr>
+    <tr><td class="t">Melancholic</td><td>物悲しい・切ない。哀愁のある曲調。</td></tr>
+    <tr><td class="t">Groovy</td><td>ノリの良い。リズムに身体が揺れるような。</td></tr>
+    <tr><td class="t">Catchy</td><td>キャッチーな。一度聴いたら耳に残る。</td></tr>
+    <tr><td class="t">Emotional</td><td>感情的な・エモーショナルな。心を揺さぶる。</td></tr>
+    <tr><td class="t">Anthemic</td><td>賛歌のような。大観衆で合唱したくなるスケール感。</td></tr>
+    <tr><td class="t">Nostalgic</td><td>懐かしい・ノスタルジックな。</td></tr>
+    <tr><td class="t">Aggressive</td><td>攻撃的な・激しい。ロック／メタル向き。</td></tr>
+    <tr><td class="t">Uplifting</td><td>高揚感のある。前向きに気分を持ち上げる。</td></tr>
+    <tr><td class="t">Driving</td><td>疾走感のある。前へ前へと進む推進力。</td></tr>
+    <tr><td class="t">Dreamy</td><td>夢見心地の。ふわふわした浮遊感。</td></tr>
+    <tr><td class="t">Chill / Laid-back</td><td>ゆったりした／力の抜けた。リラックス系。</td></tr>
+    <tr><td class="t">Dark</td><td>暗い・重い。シリアスな雰囲気。</td></tr>
+    <tr><td class="t">Epic</td><td>壮大な。映画の予告編のようなスケール。</td></tr>
+    <tr><td class="t">Energetic</td><td>エネルギッシュな。活力に満ちた。</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-cat">C. 楽器（主役は3つまでに絞る）</div>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・ニュアンス</th></tr></thead>
+  <tbody>
+    <tr><td class="t">Emotional Piano</td><td>感情豊かなピアノ。バラードの主役向き。</td></tr>
+    <tr><td class="t">Soft Upright Piano</td><td>柔らかいアップライトピアノ（家庭用縦型ピアノ）。温かく素朴な音色。</td></tr>
+    <tr><td class="t">Rhodes Piano</td><td>ローズピアノ（電気ピアノ）。まろやかでジャジーな音色。シティポップ定番。</td></tr>
+    <tr><td class="t">Acoustic Guitar</td><td>アコースティックギター。生ギターの温かい音。</td></tr>
+    <tr><td class="t">Electric Guitar</td><td>エレキギター。ロック・ポップスの定番。</td></tr>
+    <tr><td class="t">Distorted Guitar</td><td>ディストーションギター（歪ませたエレキギター）。激しいロック／メタル向き。</td></tr>
+    <tr><td class="t">Warm Bass Guitar</td><td>温かみのあるベースギター。低音で曲を支える。</td></tr>
+    <tr><td class="t">Synth Bass</td><td>シンセベース。電子的な低音。EDM・シンセウェイブ向き。</td></tr>
+    <tr><td class="t">Analog Synth Lead</td><td>アナログシンセの主旋律。レトロで太い電子音。</td></tr>
+    <tr><td class="t">Strings</td><td>ストリングス（弦楽器隊）。壮大さや切なさの演出に。</td></tr>
+    <tr><td class="t">Brass</td><td>ブラス（金管楽器隊：トランペット等）。華やかさ・力強さの演出に。</td></tr>
+    <tr><td class="t">Saxophone</td><td>サックス。ジャズや夜の雰囲気に。</td></tr>
+    <tr><td class="t">Double Kick Drum</td><td>ツーバス（バスドラム2つの高速連打）。メタルの定番。</td></tr>
+    <tr><td class="t">808 Bass</td><td>ヒップホップ定番の重低音（TR-808由来のベース音）。</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-cat">D. ボーカルの特徴（声の主を指定）</div>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・ニュアンス</th></tr></thead>
+  <tbody>
+    <tr><td class="t">Female Clear Vocal</td><td>透明感のある女性ボーカル。</td></tr>
+    <tr><td class="t">Low Soft Female Vocal</td><td>低く柔らかい女性ボーカル。落ち着いた大人の雰囲気。</td></tr>
+    <tr><td class="t">Bright Female Vocal</td><td>明るい女性ボーカル。</td></tr>
+    <tr><td class="t">Powerful Female Vocal</td><td>力強い女性ボーカル。</td></tr>
+    <tr><td class="t">Male Smooth Vocal</td><td>滑らかな男性ボーカル。R&amp;B・シティポップ向き。</td></tr>
+    <tr><td class="t">Male Gritty Vocal</td><td>ざらついた（ハスキーで荒々しい）男性ボーカル。ロック向き。</td></tr>
+    <tr><td class="t">Male Powerful Vocal</td><td>力強い男性ボーカル。</td></tr>
+    <tr><td class="t">Androgynous Vocal</td><td>中性的なボーカル。男女どちらとも取れる声。</td></tr>
+    <tr><td class="t">Duet</td><td>デュエット（男女または2人での掛け合い）。</td></tr>
+    <tr><td class="t">Choir</td><td>クワイア（聖歌隊・大人数の合唱）。荘厳さの演出に。</td></tr>
+    <tr><td class="t">Group Chant</td><td>大勢の掛け声・シンガロング（皆で叫ぶようなコーラス）。</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-cat">E. 歌い方・ボーカル表現（声の「使い方」を指定）</div>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・ニュアンス</th></tr></thead>
+  <tbody>
+    <tr><td class="t">Whisper</td><td>ウィスパー（ささやくような歌い方）。ASMR的な近さ・親密さ。</td></tr>
+    <tr><td class="t">Falsetto</td><td>ファルセット（裏声）。高音を柔らかく抜く歌い方。</td></tr>
+    <tr><td class="t">Vibrato</td><td>ビブラート（声を細かく揺らす技法）。歌い上げ系バラードに。</td></tr>
+    <tr><td class="t">Harmonies</td><td>ハーモニー（ハモリ・重ねコーラス）。厚みのあるボーカルに。</td></tr>
+    <tr><td class="t">Spoken Word</td><td>スポークンワード（語り・朗読調）。ポエトリーリーディング風。</td></tr>
+    <tr><td class="t">Rap Verse</td><td>ラップのバース（Aメロ部分をラップで）。</td></tr>
+    <tr><td class="t">Belting</td><td>ベルティング（地声で力強く張り上げる歌唱）。サビの爆発力に。</td></tr>
+    <tr><td class="t">Breathy</td><td>息まじりの（吐息成分の多い）柔らかな歌い方。</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-cat">F. 構造タグ（歌詞欄で [ ] に入れて使う）</div>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・使いどころ</th></tr></thead>
+  <tbody>
+    <tr><td class="t">[Intro]</td><td>イントロ（前奏）。<code>[Intro: Piano Solo]</code> のように楽器指定も可。</td></tr>
+    <tr><td class="t">[Verse]</td><td>Aメロ（歌の導入部）。落ち着いたパート。</td></tr>
+    <tr><td class="t">[Pre-Chorus]</td><td>Bメロ（サビ前の助走部分）。徐々に盛り上げる。</td></tr>
+    <tr><td class="t">[Chorus]</td><td>サビ（曲の最も盛り上がる部分）。</td></tr>
+    <tr><td class="t">[Post-Chorus]</td><td>ポストコーラス（サビ直後の余韻・追いフレーズ）。</td></tr>
+    <tr><td class="t">[Hook]</td><td>フック（繰り返される最も印象的な短いフレーズ）。ヒップホップ等ではサビの意味でも使う。</td></tr>
+    <tr><td class="t">[Bridge]</td><td>Cメロ（大サビ前の転換部）。転調・場面転換に。</td></tr>
+    <tr><td class="t">[Instrumental Break]</td><td>間奏（歌のない楽器演奏パート）。</td></tr>
+    <tr><td class="t">[Guitar Solo]</td><td>ギターソロ。同様に [Piano Solo]（ピアノソロ）等も可。</td></tr>
+    <tr><td class="t">[Interlude]</td><td>インタールード（曲中のつなぎ・小休止パート）。</td></tr>
+    <tr><td class="t">[Outro]</td><td>アウトロ（後奏・曲の締め）。自然に完結させるため必須。</td></tr>
+    <tr><td class="t">[Fade Out]</td><td>フェードアウト（徐々に音量を下げて終わる）。</td></tr>
+    <tr><td class="t">[Big Finish]</td><td>ビッグフィニッシュ（最後に盛大に締める終わり方）。</td></tr>
+    <tr><td class="t">[End]</td><td>終了。ここで曲を終えるという明示。</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-cat">G. 展開・ダイナミクスタグ（盛り上げ・落としの制御。Mureka念押しにも必須）</div>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・使いどころ</th></tr></thead>
+  <tbody>
+    <tr><td class="t">[Build-up]</td><td>ビルドアップ（盛り上がりへの助走）。サビやドロップの直前に置く。</td></tr>
+    <tr><td class="t">[Drop]</td><td>ドロップ（溜めた後に一気に爆発する箇所）。EDMの定番。</td></tr>
+    <tr><td class="t">[Breakdown]</td><td>ブレイクダウン（音数を減らして静かに落とす箇所）。緩急づけに。</td></tr>
+    <tr><td class="t">[Climax]</td><td>クライマックス（曲の頂点）。インスト曲の盛り上げ指定に便利。</td></tr>
+    <tr><td class="t">Dynamic structure</td><td>メリハリのある構成（Style欄用）。静と動の落差を強調。</td></tr>
+    <tr><td class="t">Explosive chorus</td><td>爆発的なサビ（Style欄用）。Murekaのサビ念押しに。</td></tr>
+    <tr><td class="t">Slow build</td><td>ゆっくりと盛り上がっていく展開（Style欄用）。</td></tr>
+  </tbody>
+</table>
+
+<div class="cheat-cat">H. インスト・除外指定（歌なし制御とネガティブタグ）</div>
+<table class="cheat">
+  <thead><tr><th style="width:220px;">タグ</th><th>日本語の意味・使いどころ</th></tr></thead>
+  <tbody>
+    <tr><td class="t">Instrumental</td><td>インストゥルメンタル（歌なし・楽器のみ）。BGM制作の必須タグ。トグルON＋Style欄併記が鉄則。</td></tr>
+    <tr><td class="t">Ambient</td><td>アンビエント。歌の主張がない空気感重視のBGMに誘導。</td></tr>
+    <tr><td class="t">vocals（除外欄に）</td><td>「ボーカル」をExclude Styles欄に入れると歌の混入を防止。</td></tr>
+    <tr><td class="t">humming（除外欄に）</td><td>「ハミング（鼻歌）」の混入防止。インスト時の定番除外ワード。</td></tr>
+    <tr><td class="t">heavy metal 等（除外欄に）</td><td>寄ってほしくないジャンル名を除外欄に書くと方向性が安定する。</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-title"><span class="num">11</span>商用利用・権利面の注意（業務利用の前に必読）</h2>
+<p class="section-desc">クライアント案件・研修成果物として楽曲を使う場合は、以下を必ず確認してください。</p>
+<ul>
+  <li><strong>商用利用の可否はプラン依存：</strong>両ツールとも、無料プランと有料プランで商用利用の可否・生成物の権利の扱いが異なります。<strong>案件で使う前に、その時点の公式利用規約と契約プランの条件を必ず確認</strong>してください。</li>
+  <li><strong>ボイスクローンの同意：</strong>他人の声を学習させる場合は本人の明確な同意が必須です。アーティストの声の無断クローンは権利侵害・炎上リスクに直結します。</li>
+  <li><strong>既存曲の流用禁止：</strong>他の楽曲の歌詞やメロディをそのままプロンプトや参照音源に使うと、著作権侵害となる可能性があります。参照に使うのは自作・権利処理済みの素材に限定してください。</li>
+  <li><strong>納品時の明示：</strong>クライアント納品物にAI生成楽曲を含む場合は、生成AI利用の事実とライセンス条件を契約・納品書面で明示しておくとトラブルを防げます。</li>
+</ul>
+
+<h2 class="section-title"><span class="num">12</span>トラブルシューティング早見表</h2>
+<p class="section-desc">「症状 → 原因 → 対策」の形式でまとめた、現場で最も引く機会の多い表です。</p>
+<table>
+  <thead><tr><th style="width:26%;">症状</th><th style="width:30%;">考えられる原因</th><th>対策</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>インスト指定なのに歌・ハミングが入る</td>
+      <td>トグルONだけで、テキスト側の指定が不足</td>
+      <td>Style欄に <code>Instrumental</code> を明記＋（Sunoは）Exclude Styles欄に <code>vocals, humming</code> を追加する三段構え。</td>
+    </tr>
+    <tr>
+      <td>後半に書いたタグが無視される</td>
+      <td>詰め込みすぎ、または文字数上限の超過（超過分は警告なしで切り捨て）</td>
+      <td>重要タグ（ジャンル・テンポ）を先頭へ。主役の楽器は3つまでに絞る。モデル別上限（4-1）を確認。</td>
+    </tr>
+    <tr>
+      <td>Murekaでサビが盛り上がらない</td>
+      <td>実直なAIへの「念押し」不足</td>
+      <td>歌詞欄の<code>[Chorus]</code>直前に<code>[Build-up]</code>を挟み、Style欄にも<code>Dynamic structure, Explosive chorus</code>を併記（連動指示）。</td>
+    </tr>
+    <tr>
+      <td>Murekaでメロディが崩壊する</td>
+      <td>添付画像とテキストの方向性が矛盾（コンフリクト）</td>
+      <td>画像とStyle欄のジャンル・ムードを一致させる。迷ったら画像を差し替える。</td>
+    </tr>
+    <tr>
+      <td>日本語歌詞の読み方が違う</td>
+      <td>漢字の読み誤り・語の切れ目の誤認</td>
+      <td>読ませたい通りにひらがなで書く。固有名詞はカタカナに。読点・改行で区切りを明示（第6章）。</td>
+    </tr>
+    <tr>
+      <td>ジャンルが混ざって中途半端になる</td>
+      <td>相反するジャンル・ムードを併記している</td>
+      <td>メインジャンルは1〜2個に絞る。寄ってほしくない方向はExclude欄で除外。</td>
+    </tr>
+    <tr>
+      <td>曲が唐突にぶつ切りで終わる</td>
+      <td><code>[Outro]</code>の指定漏れ</td>
+      <td>歌詞の末尾に<code>[Outro]</code>を必ず置く。フェードで終えたい場合は<code>[Fade Out]</code>、盛大に締めたい場合は<code>[Big Finish]</code>を追加。</td>
+    </tr>
+    <tr>
+      <td>ボイスクローンの再現度が低い</td>
+      <td>Style欄のボーカル性別指定とクローン声の性別が不一致</td>
+      <td>Male/Female指定をクローン声と一致させる。</td>
+    </tr>
+    <tr>
+      <td>何度やっても狙い通りにならない</td>
+      <td>生成の偶発性（特にSunoのガチャ要素）</td>
+      <td>同一プロンプトで複数回生成して比較。成功したタグの組み合わせは必ず記録・資産化する。数回で近いものが出るなら微調整、全く外れるならプロンプトを書き直す。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-title"><span class="num">13</span>研修まとめチェックリスト</h2>
+<p class="section-desc">実際にプロンプトを作成する際は、以下を確認してください。</p>
+<ul class="checklist">
+  <li><strong>共通：</strong>使用するツールを判断フロー（第2章）で選定した</li>
+  <li><strong>共通：</strong>日本語歌詞の読み間違いリスク箇所（漢字・固有名詞・数字）をひらがな等に開いた</li>
+  <li><strong>共通：</strong>商用利用する場合、プランのライセンス条件を最新の規約で確認した</li>
+  <li><strong>Suno：</strong>Style欄はカンマ区切りの単語のみで構成し、重要タグを先頭に置いた</li>
+  <li><strong>Suno：</strong>主役の楽器は3つ以内に絞った</li>
+  <li><strong>Suno：</strong>歌なしの場合、トグルON＋Style欄<code>Instrumental</code>＋Exclude欄<code>vocals, humming</code>の三段構えにした</li>
+  <li><strong>Suno：</strong>歌詞の末尾に<code>[Outro]</code>を置いた</li>
+  <li><strong>Mureka：</strong>雰囲気・世界観の表現は画像に任せ、テキストは音楽的要素のみに絞った</li>
+  <li><strong>Mureka：</strong>サビを盛り上げたい箇所は、Style欄と歌詞欄の両方で念押し（連動指示）した</li>
+  <li><strong>Mureka：</strong>添付画像とテキストの方向性（明るい／暗い、ジャンルなど）が矛盾していないか確認した</li>
+  <li><strong>Mureka：</strong>ボイスクローン使用時、声の性別指定を一致させ、権利者の同意を確認した</li>
+</ul>
+
+</div>
+<!-- 自分で追加した個所 -->
+<div style="text-align: center;">
+  <h2>謝辞</h2>
+  <p>
+    こちらの資料はポリプロピレン様が作ってくださいました。<br>
+    リスナーから音楽生成AIの使い方を聞かれたけど、<br>
+    「全く音楽生成AIを触ったことが無かったので何も答えられない。」<br>
+    そこでポリさんにお話をしてみたところこのような資料をまとめてくださいました。<br>
+    急な話にもかかわらず、本当にありがとうございます。<br>
+    <br>
+    凡ミスで公開する予定ではなかった第1版を公開してしまいました。<br>
+    誠にごめんなさい。<br>
+  </p>
+  <p>
+    ポリプロピレンさん：<a href="https://x.com/Poly_ProPene_">X（旧Twitter）</a>
+  </p>
+</div>
+<!-- 自分で追加した個所 -->
+
+<footer>音楽生成AI（Suno & Mureka）完全攻略研修資料（改訂版）｜仕様情報は2026年7月時点。最新情報は各サービスの公式情報を参照してください。</footer>
+
+</body>
+</html>
